@@ -1,0 +1,46 @@
+{
+    "parser": "babel-eslint",
+    "globals": {
+        "_t": true,
+        "window": true,
+        "document": true,
+        "appConstants": true,
+        "localStorage": true,
+        "fetch": true,
+        "appGlobals": true
+    },
+    "plugins": [
+        "react-hooks"
+    ],
+    "rules": {
+      "template-curly-spacing" : "off",
+      "indent" : "off",
+      "newline-before-return": "warn",
+      "camelcase": "off",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "jsx-a11y/no-static-element-interactions": "off",
+      "jsx-a11y/anchor-is-valid": "off",
+      "no-underscore-dangle": "off",
+      "no-param-reassign": "off",
+      "no-plusplus": "off",
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", "ts", "tsx"] }],
+      "no-use-before-define": ["error", { "functions": false, "classes": true, "variables": true }],
+      "jsx-a11y/click-events-have-key-events": "off",
+      "react/prop-types": "off",
+      "arrow-parens": ["error", "always"],
+      "jsx-quotes": "off",
+      "object-curly-newline": ["error", { "multiline": true, "consistent": true }],
+      "react/no-did-update-set-state": "off",
+      "no-nested-ternary": "off",
+      "react/no-danger": "off",
+      "react/button-has-type": "off",
+      "eol-last":"off",
+      "react/state-in-constructor": "off",
+      "react/destructuring-assignment": ["warn", "always", { "ignoreClassFields": true }],
+      "import/prefer-default-export": "off",
+      "react/jsx-props-no-spreading": "off",
+      "import/no-named-as-default": "off",
+      "import/no-cycle": "off"
+    }
+}

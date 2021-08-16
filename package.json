@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "Electron react app",
   "homepage": "./",
-  "main": "src/electron-starter.js",
+  "main": "src/electron-starter.ts",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -52,11 +52,16 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.6.1",
+    "@types/react": "^17.0.18",
+    "@types/react-dom": "^17.0.9",
     "electron-compile": "^6.4.4",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
+    "typescript": "^4.3.5",
     "web-vitals": "^1.1.2"
   },
   "devDependencies": {

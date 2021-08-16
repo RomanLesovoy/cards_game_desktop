@@ -2,7 +2,7 @@ const electron = require('electron');
 // Module to control application life.
 const {
   app,
-  screen,
+  screen: electronScreen,
   BrowserWindow,
   Menu,
 } = electron;
@@ -12,10 +12,10 @@ const url = require('url');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
+let mainWindow: any;
 
 function createMenu() {
-  const template = [
+  const template: any = [
     // {
     //   label: 'Window',
     //   submenu: [
@@ -31,7 +31,7 @@ function createMenu() {
 
 function createWindow() {
   // Create the browser window.
-  const { width = 800, height = 600 } = screen.getPrimaryDisplay().workAreaSize;
+  const { width = 800, height = 600 } = electronScreen.getPrimaryDisplay().workAreaSize;
   const icon = 'public/icon.png';
   mainWindow = new BrowserWindow({
     width,
@@ -102,3 +102,4 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+export default {}
