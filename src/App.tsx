@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import GameProvider from './cards/GameProvider';
 import CardsList from './cards/CardsList';
 
-class App extends Component {
-  render() {
+const App = () => {
     return (
-      <GameProvider>
-        <div className="App">
-          <CardsList />
-        </div>
-      </GameProvider>
+        <GameProvider>
+            <div className="App">
+                <CardsList />
+            </div>
+        </GameProvider>
     );
-  }
 }
 
 export default App;
