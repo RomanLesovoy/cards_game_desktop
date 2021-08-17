@@ -1,0 +1,12 @@
+.app {
+    min-height: 100vh;
+    background-image: linear-gradient(to top left, rgb(0, 0, 0), rgb(24, 5, 35), rgb(48, 10, 69), rgb(73, 14, 104), rgb(97, 19, 138), rgb(121, 24, 173), rgb(104, 21, 148), rgb(87, 18, 123), rgb(70, 15, 98), rgb(53, 11, 73), rgb(36, 8, 48), rgb(19, 5, 23));
+    background: -moz-linear-gradient(to top left, rgb(0, 0, 0), rgb(24, 5, 35), rgb(48, 10, 69), rgb(73, 14, 104), rgb(97, 19, 138), rgb(121, 24, 173), rgb(104, 21, 148), rgb(87, 18, 123), rgb(70, 15, 98), rgb(53, 11, 73), rgb(36, 8, 48), rgb(19, 5, 23));
+    background: -webkit-linear-gradient(to top left, rgb(0, 0, 0), rgb(24, 5, 35), rgb(48, 10, 69), rgb(73, 14, 104), rgb(97, 19, 138), rgb(121, 24, 173), rgb(104, 21, 148), rgb(87, 18, 123), rgb(70, 15, 98), rgb(53, 11, 73), rgb(36, 8, 48), rgb(19, 5, 23));
+    background: -o-linear-gradient(to top left, rgb(0, 0, 0), rgb(24, 5, 35), rgb(48, 10, 69), rgb(73, 14, 104), rgb(97, 19, 138), rgb(121, 24, 173), rgb(104, 21, 148), rgb(87, 18, 123), rgb(70, 15, 98), rgb(53, 11, 73), rgb(36, 8, 48), rgb(19, 5, 23));
+    background: -ms-linear-gradient(to top left, rgb(0, 0, 0), rgb(24, 5, 35), rgb(48, 10, 69), rgb(73, 14, 104), rgb(97, 19, 138), rgb(121, 24, 173), rgb(104, 21, 148), rgb(87, 18, 123), rgb(70, 15, 98), rgb(53, 11, 73), rgb(36, 8, 48), rgb(19, 5, 23));
+}
+
+.app .game-field {
+    padding: 30px;
+}

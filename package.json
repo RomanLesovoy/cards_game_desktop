@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "Electron react app",
   "homepage": "./",
-  "main": "src/electron-starter.ts",
+  "main": "src/electron-starter.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

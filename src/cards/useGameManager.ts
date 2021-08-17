@@ -7,9 +7,11 @@ import allImages from '../allImages';
 export interface GameManager {
     gameConfig: Config,
     gameCards: Array<CardWithState>,
+    setConfig: Function,
     shuffleCards: Function,
     setCards: Function,
-    setConfig: Function,
+    addActiveCard: (card: CardWithState) => void,
+    removeActiveCard: (card: CardWithState) => void,
 }
 export const defaultGameManager: GameManager = {
     gameConfig: defaultConfig,
@@ -17,7 +19,19 @@ export const defaultGameManager: GameManager = {
     shuffleCards: () => {},
     setCards: () => {},
     setConfig: () => {},
+    addActiveCard: (card) => {},
+    removeActiveCard: (card) => {},
 }
+export const activeCards: { cards: Array<CardWithState>, setCards: Function, getCards: Function } = {
+    cards: [],
+    getCards: function (): Array<CardWithState> {
+        return this.cards;
+    },
+    setCards: function (cards: Array<CardWithState>) {
+        this.cards = cards
+    },
+};
+
 const useGameManager = (): GameManager => {
     const [gameConfig, setGameConfig] = useState(defaultConfig);
     const [gameCards, setGameCards] = useState<Array<CardWithState>>([]);
@@ -28,22 +42,36 @@ const useGameManager = (): GameManager => {
             ),
         );
     }, [gameConfig]);
-    const shuffleCards = () => {
-        setGameCards(helpers.shuffle(gameCards));
+    const checkAndUpdateCards = () => {
+        const coincidences = helpers.getCoincidences(activeCards.getCards(), gameConfig.repeat);
+        if (coincidences.length) {
+            const updatedCards = gameCards.map((card) => {
+                if (coincidences.includes(card.value)) {
+                    card.opened = true;
+                }
+
+                return card;
+            });
+            setGameCards(updatedCards);
+        }
     }
-    const setCards = (cards: Array<CardWithState>) => {
-        setGameCards(cards);
+    const addActiveCard = (card: CardWithState) => {
+        // @ts-ignore
+        activeCards.setCards([].concat(activeCards.getCards(), card));
+        helpers.debounce(checkAndUpdateCards, 1000)();
     }
-    const setConfig = (config: Config) => {
-        setGameConfig(config);
+    const removeActiveCard = (card: CardWithState) => {
+        activeCards.setCards(activeCards.getCards().filter((_card: CardWithState) => _card !== card));
     }
 
     return {
         gameConfig,
         gameCards,
-        shuffleCards,
-        setCards,
-        setConfig,
+        setConfig: setGameConfig,
+        shuffleCards: () => setGameCards(helpers.shuffle(gameCards)),
+        setCards: setGameCards,
+        addActiveCard,
+        removeActiveCard,
     };
 }
 

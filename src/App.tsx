@@ -1,14 +1,18 @@
 import React from 'react';
 import GameProvider from './cards/GameProvider';
 import CardsList from './cards/CardsList';
+import './global.css';
+import './app.css';
 
 const App = () => {
     return (
-        <GameProvider>
-            <div className="App">
-                <CardsList />
-            </div>
-        </GameProvider>
+        <div className="app">
+            <GameProvider>
+                <div className="game-field">
+                    <CardsList />
+                </div>
+            </GameProvider>
+        </div>
     );
 }
 

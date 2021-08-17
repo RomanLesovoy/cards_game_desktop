@@ -5,6 +5,7 @@ export const GameContext = React.createContext(defaultGameManager);
 
 const GameProvider = ({ children = null }: { children: ReactNode }) => {
     const gameManager: GameManager = useGameManager();
+
     return (
         <GameContext.Provider value={gameManager}>
             { children }
