@@ -6,6 +6,6 @@ export interface Config {
 
 export default {
     repeat: 2,
-    unique: 8,
+    unique: 20,
     openedTimeout: 3000,
 };
