@@ -1,3 +1,4 @@
+// cards
 import q from './images/cards/ab.png';
 import w from './images/cards/assasin.png';
 import e from './images/cards/bane.png';
@@ -19,6 +20,17 @@ import k from './images/cards/spirit.png';
 import l from './images/cards/tiny.png';
 import z from './images/cards/visage.png';
 
+// bg
+import bgQ from './images/bg/dark-castle.jpg';
+import bgW from './images/bg/forest.jpg';
+import bgE from './images/bg/hi-techno.webp';
+import bgR from './images/bg/inferno.jpg';
+import bgT from './images/bg/samurai.jpg';
+
 export default [
     q, w, e, r, t, y, u, i, o, p, a, s, d, f, g, h, j, k, l, z,
+];
+
+export const allBackgrounds = [
+    bgQ, bgW, bgE, bgR, bgT,
 ];

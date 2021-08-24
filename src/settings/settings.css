@@ -1,0 +1,38 @@
+.shadow {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: var(--game-bg-component);
+}
+
+.settings {
+    position: fixed;
+    width: 90vw;
+    max-width: 800px;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    border: 2px solid var(--game-color-hidden);
+    height: 90vh;
+    max-height: 1000px;
+    background-image: url(../images/settings-bg-2.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    box-shadow: 2px 2px 7px 1px var(--game-color-hidden);
+    padding: 40px;
+}
+
+.settings .close {
+    position: absolute;
+    font-size: 44px;
+    right: 24px;
+    top: 20px;
+    font-weight: bold;
+    line-height: 25px;
+}
+
+.settings .close:hover {
+    color: var(--game-main-color);
+}

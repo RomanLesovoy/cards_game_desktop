@@ -1,0 +1,18 @@
+header.header {
+    min-height: 100px;
+    background-color: var(--game-bg-component);
+    border-bottom: 3px solid var(--game-main-color);
+    box-shadow: 0 4px 9px -2px #1f1f1f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header.header > * {
+    margin-right: 30px;
+    font-size: 24px;
+}
+
+header.header > *:last-child {
+    margin-right: 0;
+}

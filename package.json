@@ -1,8 +1,8 @@
 {
-  "name": "electron-react",
-  "productName": "electron-react",
-  "version": "0.0.1",
-  "description": "Electron react app",
+  "name": "cards-picker",
+  "productName": "cards-picker",
+  "version": "0.0.2",
+  "description": "Cards Picker Game",
   "homepage": "./",
   "main": "src/electron-starter.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "dev": "nf start -p 3000"
   },
   "keywords": [],
-  "author": "dev",
+  "author": "Lesovoy Roman",
   "license": "MIT",
   "config": {
     "forge": {
@@ -34,7 +34,7 @@
         "packageManager": "npm"
       },
       "electronWinstallerConfig": {
-        "name": "test_app"
+        "name": "cards_picker_app"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
@@ -44,7 +44,7 @@
       },
       "windowsStoreConfig": {
         "packageName": "",
-        "name": "testapp"
+        "name": "cards_picker"
       }
     }
   },

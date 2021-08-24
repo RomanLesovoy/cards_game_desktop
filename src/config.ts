@@ -1,3 +1,11 @@
+import helpers from './helpers';
+
+export const configLocalStorageKeys = {
+    unique: 'uniqueKey',
+    repeat: 'repeatKey',
+    openedTimeout: 'openedTimeoutKey',
+}
+
 export interface Config {
     repeat: number,
     unique: number,
@@ -5,7 +13,7 @@ export interface Config {
 }
 
 export default {
-    repeat: 2,
-    unique: 20,
-    openedTimeout: 3000,
+    repeat: Number(helpers.getFromLocalStorage(configLocalStorageKeys.repeat) || 2),
+    unique: Number(helpers.getFromLocalStorage(configLocalStorageKeys.unique) || 20),
+    openedTimeout: Number(helpers.getFromLocalStorage(configLocalStorageKeys.openedTimeout) || 3000),
 };

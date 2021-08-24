@@ -1,4 +1,5 @@
 import { CardWithState } from './cards/types';
+import { allBackgrounds } from './allImages';
 
 interface WithRepeatProps {
     allImages: Array<string>,
@@ -12,7 +13,9 @@ interface ChosenAll {
 }
 
 export default {
-    shuffle: (array: Array<any>) => array.sort(() => Math.random() - 0.5),
+    shuffle: function (array: Array<any>) {
+        return array.sort(() => Math.random() - 0.5);
+    },
     withRepeat: function ({ allImages, repeat, unique }: WithRepeatProps): Array<CardWithState> {
         if (allImages.length < unique) {
             throw new Error('Not enough images');
@@ -29,7 +32,7 @@ export default {
             opened: false,
         }));
     },
-    chosenAll: ({ cards = [], currentCard, repeat }: ChosenAll) => {
+    chosenAll: function ({ cards = [], currentCard, repeat }: ChosenAll) {
       const filtered = cards.filter((card) => card.value === currentCard.value);
 
       return cards.length && filtered?.length === repeat;
@@ -66,5 +69,29 @@ export default {
 
             if (callNow) func.apply(context, args);
         };
+    },
+    getGameBg: function() {
+        return this.shuffle(allBackgrounds).pop();
+    },
+    setCssVar: function(key: string, value: any) {
+        const root = document.documentElement;
+        root.style.setProperty(key, value);
+    },
+    setLocalStorage: function (key: string, value: any) {
+        if (typeof value === 'object' || Array.isArray(value)) {
+            value = JSON.stringify(value);
+        }
+        localStorage.setItem(key, value);
+    },
+    getFromLocalStorage: function(key: string) {
+        let result;
+        const storageItem = localStorage.getItem(key) || ''
+        try {
+            result = JSON.parse(storageItem);
+        } catch {
+            result = storageItem;
+        }
+
+        return result;
     },
 }

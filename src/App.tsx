@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GameProvider from './cards/GameProvider';
 import CardsList from './cards/CardsList';
+import Header from './partials/header/Header';
+import Settings from './settings/Settings';
+import helpers from './helpers';
 import './global.css';
 import './app.css';
 
-const App = () => {
+const Manager = () => {
+    const [openedSettings, setOpenedSettings] = useState(false);
+
     return (
-        <div className="app">
+        <>
+            <Header openSettings={setOpenedSettings} />
+            { openedSettings && <Settings onClose={() => setOpenedSettings(false)} /> }
+        </>
+    );
+}
+
+const App = () => {
+    const gameBg = helpers.getGameBg();
+
+    return (
+        <div className="app" id="app" style={{ backgroundImage: `url(${gameBg})` }}>
             <GameProvider>
-                <div className="game-field">
-                    <CardsList />
-                </div>
+                <Manager />
+                <CardsList />
             </GameProvider>
         </div>
     );

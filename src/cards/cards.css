@@ -9,7 +9,6 @@
     margin: 10px;
     background-color: transparent;
     perspective: 1000px;
-    cursor: pointer;
 }
 
 .flip-card img {
@@ -25,7 +24,7 @@
     border-radius: 10px;
     transition: transform 0.8s;
     transform-style: preserve-3d;
-    border: 2px solid black;
+    border: 2px solid var(--game-color-hidden);
     box-shadow: 1px 1px 8px 0px #c3c3c3;
 }
 
@@ -38,7 +37,11 @@
 }
 
 .flip-card-front {
-    background-color: black;
+    background-color: var(--game-color-hidden);
+}
+
+.flip-card.inactive .flip-card-inner:hover {
+    box-shadow: 0 0 6px 2px var(--game-main-color);
 }
 
 .flip-card.active .flip-card-inner {
