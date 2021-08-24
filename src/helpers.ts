@@ -94,4 +94,11 @@ export default {
 
         return result;
     },
+    formatTimeWithZero: function (value: number) {
+      if (value < 10) {
+          return `0${value}`;
+      }
+
+      return value;
+    },
 }

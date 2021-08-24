@@ -16,3 +16,9 @@ header.header > * {
 header.header > *:last-child {
     margin-right: 0;
 }
+
+header.header .timer span {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--game-main-color);
+}
