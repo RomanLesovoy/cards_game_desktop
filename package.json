@@ -11,7 +11,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "electron": "electron .",
-    "dev": "nf start -p 3000"
+    "dev": "nf start -p 3000",
+    "deploy-win": "electron-packager ./ cards --platform=win32 --arch=x86_64",
+    "deploy-linux": "electron-packager ./ cards --platform=linux --arch=x86_64"
   },
   "keywords": [],
   "author": "Lesovoy Roman",
