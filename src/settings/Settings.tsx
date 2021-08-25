@@ -1,9 +1,9 @@
 import React from 'react';
 import Select from '../controls/select/Select';
-import { GameContext } from '../cards/GameProvider';
 import helpers from '../helpers';
 import { configLocalStorageKeys } from '../config';
 import './settings.css';
+import { GameManager } from '../cards/useGameManager';
 
 const cardsOptions = [
     { label: '8', value: 8 },
@@ -18,7 +18,7 @@ const repeatOptions = [
     { label: '4', value: 4 },
 ];
 
-const Settings = ({ onClose = () => {} }: { onClose: Function }) => {
+const Settings = ({ onClose = () => {}, game }: { onClose: Function, game: GameManager }) => {
     const onChange = (value: any) => (localStorageKey: string, updateConfig: Function) => {
         helpers.setLocalStorage(localStorageKey, value);
         updateConfig();
@@ -26,29 +26,25 @@ const Settings = ({ onClose = () => {} }: { onClose: Function }) => {
 
     return (
         <div className="shadow">
-            <GameContext.Consumer>
-                {(game) => (
-                    <div className="settings">
-                        <div className="close" onClick={() => onClose()}>x</div>
-                        <Select
-                            label="Cards"
-                            options={cardsOptions}
-                            defaultValue={cardsOptions.find((option) => option.value === game.gameConfig.unique)}
-                            onChange={(value: number) => onChange(value)(configLocalStorageKeys.unique, () => {
-                                game.setConfig({ ...game.gameConfig, unique: value })
-                            })}
-                        />
-                        <Select
-                            label="Repeat"
-                            options={repeatOptions}
-                            defaultValue={repeatOptions.find((option) => option.value === game.gameConfig.repeat)}
-                            onChange={(value: number) => onChange(value)(configLocalStorageKeys.repeat, () => {
-                                game.setConfig({ ...game.gameConfig, repeat: value })
-                            })}
-                        />
-                    </div>
-                )}
-            </GameContext.Consumer>
+            <div className="settings">
+                <div className="close" onClick={() => onClose()}>x</div>
+                <Select
+                    label="Cards"
+                    options={cardsOptions}
+                    defaultValue={cardsOptions.find((option) => option.value === game.gameConfig.unique)}
+                    onChange={(value: number) => onChange(value)(configLocalStorageKeys.unique, () => {
+                        game.setConfig({ ...game.gameConfig, unique: value })
+                    })}
+                />
+                <Select
+                    label="Repeat"
+                    options={repeatOptions}
+                    defaultValue={repeatOptions.find((option) => option.value === game.gameConfig.repeat)}
+                    onChange={(value: number) => onChange(value)(configLocalStorageKeys.repeat, () => {
+                        game.setConfig({ ...game.gameConfig, repeat: value })
+                    })}
+                />
+            </div>
         </div>
     );
 }

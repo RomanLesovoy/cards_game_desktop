@@ -1,0 +1,5 @@
+.timer span {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--game-main-color);
+}

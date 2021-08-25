@@ -8,8 +8,11 @@ export interface GameManager {
     playGame: boolean,
     setPlayGame: Function,
     gameConfig: Config,
+    counterClicks: number,
+    gameOver: boolean,
     gameCards: Array<CardWithState>,
     setConfig: Function,
+    countPoints: Function,
     shuffleCards: Function,
     setCards: Function,
     restart: Function,
@@ -21,6 +24,9 @@ export const defaultGameManager: GameManager = {
     setPlayGame: () => {},
     gameConfig: defaultConfig,
     gameCards: [],
+    counterClicks: 0,
+    gameOver: false,
+    countPoints: () => {},
     restart: () => {},
     shuffleCards: () => {},
     setCards: () => {},
@@ -37,12 +43,25 @@ export const activeCards: { cards: Array<CardWithState>, setCards: Function, get
         this.cards = cards
     },
 };
+const useCounter = () => {
+    const [counter, setCounter] = useState(0);
+
+    return {
+        counter,
+        setCounter,
+    };
+}
 
 const useGameManager = (): GameManager => {
     const [gameConfig, setGameConfig] = useState(defaultGameManager.gameConfig);
     const [gameCards, setGameCards] = useState<Array<CardWithState>>(defaultGameManager.gameCards);
     const [playGame, setPlayGame] = useState<boolean>(defaultGameManager.playGame);
+    const [gameOver, setGameOver] = useState<boolean>(defaultGameManager.gameOver);
+    const { counter: counterClicks, setCounter: setCounterClicks } = useCounter();
+
     const restart = () => {
+        setPlayGame(true);
+        setGameOver(false);
         setGameCards(
             helpers.shuffle(
                 helpers.withRepeat({ allImages, ...gameConfig }),
@@ -54,22 +73,40 @@ const useGameManager = (): GameManager => {
 
     const checkAndUpdateCards = () => {
         const coincidences = helpers.getCoincidences(activeCards.getCards(), gameConfig.repeat);
+        let allCardsPicked = true;
         if (coincidences.length) {
             const updatedCards = gameCards.map((card) => {
                 if (coincidences.includes(card.value)) {
                     card.opened = true;
                 }
+                if (!card.opened) {
+                    allCardsPicked = false;
+                }
 
                 return card;
             });
+            if (allCardsPicked) {
+                setPlayGame(false);
+                setGameOver(true);
+            }
             setGameCards(updatedCards);
         }
     }
+
+    const countPoints = (timeSeconds: number) => {
+        const pointsCards = (gameConfig.repeat * 1000) + (gameConfig.unique * 100);
+        const minusPointsTimeAndClicks = (timeSeconds * 25) + (counterClicks * 25);
+
+        return pointsCards - minusPointsTimeAndClicks;
+    }
+
     const addActiveCard = (card: CardWithState) => {
         // @ts-ignore
         activeCards.setCards([].concat(activeCards.getCards(), card));
+        setCounterClicks(counterClicks + 1);
         helpers.debounce(checkAndUpdateCards, 1000)();
     }
+
     const removeActiveCard = (card: CardWithState) => {
         activeCards.setCards(activeCards.getCards().filter((_card: CardWithState) => _card !== card));
     }
@@ -78,6 +115,9 @@ const useGameManager = (): GameManager => {
         playGame,
         gameConfig,
         gameCards,
+        counterClicks,
+        gameOver,
+        countPoints: countPoints,
         restart: restart,
         setPlayGame: setPlayGame,
         setConfig: setGameConfig,

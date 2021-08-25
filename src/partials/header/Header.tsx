@@ -1,41 +1,43 @@
 import React from 'react';
-import { useStopwatch } from 'react-timer-hook';
-import { GameContext } from '../../cards/GameProvider';
 import Button from '../../controls/button/Button';
-import helpers from '../../helpers';
+import Time from '../../cards/results/Time';
 import './header.css';
+import { GameManager } from '../../cards/useGameManager';
 
-const Header = ({ openSettings = () => {} }: { openSettings: Function }) => {
-    const {
-        seconds,
-        minutes,
-        start,
-        pause,
-    } = useStopwatch({ autoStart: false });
-
+interface Props {
+    openSettings: Function,
+    timerPause: Function,
+    timerStart: Function,
+    seconds: number,
+    minutes: number,
+    game: GameManager,
+}
+const Header = ({ openSettings, timerPause, timerStart, minutes, seconds, game }: Props) => {
     return (
-        <GameContext.Consumer>
-            {(game) => (
-                <header className="header">
+        <header className="header">
+            { game.gameOver
+                ? (
+                    <Button
+                        onClick={game.restart}
+                        value="Restart"
+                    />
+                )
+                : (
                     <Button
                         onClick={() => {
                             game.setPlayGame(!game.playGame);
-                            game.playGame ? pause() : start();
+                            game.playGame ? timerPause() : timerStart();
                         }}
                         value={game.playGame ? 'Pause game' : 'Play game'}
                     />
-                    <Button
-                        onClick={() => openSettings(true)}
-                        value={'Settings'}
-                    />
-                    <div className="timer">
-                        <span>
-                            { helpers.formatTimeWithZero(minutes) } : { helpers.formatTimeWithZero(seconds) }
-                        </span>
-                    </div>
-                </header>
-            )}
-        </GameContext.Consumer>
+                )
+            }
+            <Button
+                onClick={() => openSettings(true)}
+                value={'Settings'}
+            />
+            <Time seconds={seconds} minutes={minutes} />
+        </header>
     );
 }
 
