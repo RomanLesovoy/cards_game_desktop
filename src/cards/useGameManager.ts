@@ -56,6 +56,7 @@ const useCounter = () => {
         setCounter,
     };
 }
+const timerConfig = { autoStart: false };
 
 const useGameManager = (): GameManager => {
     const [gameConfig, setGameConfig] = useState(defaultGameManager.gameConfig);
@@ -64,7 +65,7 @@ const useGameManager = (): GameManager => {
     const [gameOver, setGameOver] = useState<boolean>(defaultGameManager.gameOver);
     const { counter: counterClicks, setCounter: setCounterClicks } = useCounter();
 
-    const timer = useStopwatch({ autoStart: false });
+    const timer = useStopwatch(timerConfig);
 
     const start = () => {
         setPlayGame(true);
@@ -97,7 +98,7 @@ const useGameManager = (): GameManager => {
 
     useEffect(() => {
         restart();
-        timer.reset();
+        timer.reset(0, timerConfig.autoStart);
     }, [gameConfig]);
 
     const checkAndUpdateCards = () => {
