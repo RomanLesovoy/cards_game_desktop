@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useStopwatch, StopwatchResult } from 'react-timer-hook';
 import defaultConfig, { Config } from '../config';
 import { CardWithState } from './types';
 import helpers from '../helpers';
@@ -6,10 +7,12 @@ import allImages from '../allImages';
 
 export interface GameManager {
     playGame: boolean,
-    setPlayGame: Function,
+    start: Function,
+    pause: Function,
     gameConfig: Config,
     counterClicks: number,
     gameOver: boolean,
+    timer: StopwatchResult,
     gameCards: Array<CardWithState>,
     setConfig: Function,
     countPoints: Function,
@@ -19,9 +22,11 @@ export interface GameManager {
     addActiveCard: (card: CardWithState) => void,
     removeActiveCard: (card: CardWithState) => void,
 }
+// @ts-ignore
 export const defaultGameManager: GameManager = {
     playGame: false,
-    setPlayGame: () => {},
+    start: () => {},
+    pause: () => {},
     gameConfig: defaultConfig,
     gameCards: [],
     counterClicks: 0,
@@ -59,9 +64,24 @@ const useGameManager = (): GameManager => {
     const [gameOver, setGameOver] = useState<boolean>(defaultGameManager.gameOver);
     const { counter: counterClicks, setCounter: setCounterClicks } = useCounter();
 
-    const restart = () => {
+    const timer = useStopwatch({ autoStart: false });
+
+    const start = () => {
         setPlayGame(true);
-        setGameOver(false);
+        timer.start();
+    }
+
+    const pause = () => {
+        setPlayGame(false);
+        timer.pause();
+    }
+
+    const restart = () => {
+        if (gameOver) {
+            setGameOver(false);
+            timer.reset();
+            start();
+        }
         setGameCards(
             helpers.shuffle(
                 helpers.withRepeat({ allImages, ...gameConfig }),
@@ -69,7 +89,16 @@ const useGameManager = (): GameManager => {
         );
     }
 
-    useEffect(restart, [gameConfig]);
+    const callGameOver = () => {
+        setPlayGame(false);
+        setGameOver(true);
+        timer.pause();
+    }
+
+    useEffect(() => {
+        restart();
+        timer.reset();
+    }, [gameConfig]);
 
     const checkAndUpdateCards = () => {
         const coincidences = helpers.getCoincidences(activeCards.getCards(), gameConfig.repeat);
@@ -86,8 +115,7 @@ const useGameManager = (): GameManager => {
                 return card;
             });
             if (allCardsPicked) {
-                setPlayGame(false);
-                setGameOver(true);
+                callGameOver();
             }
             setGameCards(updatedCards);
         }
@@ -117,9 +145,11 @@ const useGameManager = (): GameManager => {
         gameCards,
         counterClicks,
         gameOver,
+        timer,
         countPoints: countPoints,
         restart: restart,
-        setPlayGame: setPlayGame,
+        start: start,
+        pause: pause,
         setConfig: setGameConfig,
         shuffleCards: () => setGameCards(helpers.shuffle(gameCards)),
         setCards: setGameCards,

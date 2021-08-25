@@ -3,12 +3,9 @@ import './game-results.css';
 import Time from "./Time";
 import { GameManager } from '../useGameManager';
 
-const GameResults = ({ seconds = 0, minutes = 0, game, pause }: { seconds: number, minutes: number, game: GameManager, pause: Function }) => {
+const GameResults = ({ seconds = 0, minutes = 0, game }: { seconds: number, minutes: number, game: GameManager }) => {
     const [isOpened, setIsOpened] = useState(game.gameOver);
     useEffect(() => {
-        if (game.gameOver) {
-            pause();
-        }
         setIsOpened(game.gameOver);
     }, [game.gameOver]);
 

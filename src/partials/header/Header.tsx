@@ -6,13 +6,11 @@ import { GameManager } from '../../cards/useGameManager';
 
 interface Props {
     openSettings: Function,
-    timerPause: Function,
-    timerStart: Function,
     seconds: number,
     minutes: number,
     game: GameManager,
 }
-const Header = ({ openSettings, timerPause, timerStart, minutes, seconds, game }: Props) => {
+const Header = ({ openSettings, minutes, seconds, game }: Props) => {
     return (
         <header className="header">
             { game.gameOver
@@ -25,8 +23,7 @@ const Header = ({ openSettings, timerPause, timerStart, minutes, seconds, game }
                 : (
                     <Button
                         onClick={() => {
-                            game.setPlayGame(!game.playGame);
-                            game.playGame ? timerPause() : timerStart();
+                            game.playGame ? game.pause() : game.start();
                         }}
                         value={game.playGame ? 'Pause game' : 'Play game'}
                     />
